@@ -20,6 +20,7 @@ public class SignListener implements Listener {
     public SignListener(PlayerOnline plugin) {
         this.plugin = plugin;
     }
+
     //Listens to when the sign is created
     @EventHandler
     public void onSignUpdate(SignChangeEvent e) {
@@ -50,6 +51,7 @@ public class SignListener implements Listener {
 
         }
     }
+
     //When sign is clicked, the user is prompted with the last seen information
     @EventHandler
     public void onSignInteract(PlayerInteractEvent e) {
@@ -57,24 +59,27 @@ public class SignListener implements Listener {
             if (e.getClickedBlock().getType() == Material.WALL_SIGN || e.getClickedBlock().getType() == Material.SIGN_POST || e.getClickedBlock().getType() == Material.SIGN) {
                 Player player = e.getPlayer();
                 Sign sign = (Sign) e.getClickedBlock().getState();
-                if(sign.getLine(0).equalsIgnoreCase("[online]") ){
+                if (ChatColor.stripColor(sign.getLine(0)).equalsIgnoreCase("[online]")) {
                     Player target = Bukkit.getPlayer(sign.getLine(1));
                     String lastSeen = plugin.getPlayerData().getString(target.getUniqueId().toString());
-                    if(lastSeen != null){
-                        if(!target.isOnline()) {
+                    if (!target.isOnline()) {
+                        if (lastSeen != null) {
                             player.sendMessage(target.getDisplayName() + " was last seen: " + lastSeen);
-                        }else{
-                            player.sendMessage("That player is online!");
+                        } else {
+                            player.sendMessage("That player has never been seen before!");
                         }
+                    } else {
+                        player.sendMessage("That player is online!");
                     }
                 }
             }
         }
     }
+
     //Handles when the sign is broken
     @EventHandler
-    public void onSignBreak(BlockBreakEvent e){
-        if(plugin.getLocations().contains(e.getBlock().getLocation())){
+    public void onSignBreak(BlockBreakEvent e) {
+        if (plugin.getLocations().contains(e.getBlock().getLocation())) {
             plugin.getLocations().remove(e.getBlock().getLocation());
         }
     }

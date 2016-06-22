@@ -15,7 +15,7 @@ public class Serialization {
         String[] coords = string.split(":");
         Double x =Double.parseDouble(coords[0]);
         Double y =Double.parseDouble(coords[1]);
-        Double z =Double.parseDouble(coords[2]);
+        Double z =Double.parseDouble(coords[2].split("=")[0]);
         World world = Bukkit.getWorld(string.split("=")[1]);
         return new Location(world,x,y,z);
     }

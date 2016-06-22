@@ -3,6 +3,7 @@ package me.ceramictitan.playeronline;
 import me.ceramictitan.playeronline.listeners.PlayerListener;
 import me.ceramictitan.playeronline.listeners.SignListener;
 import me.ceramictitan.playeronline.utility.Serialization;
+import me.ceramictitan.playeronline.utility.SignUpdater;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -71,14 +72,16 @@ public class PlayerOnline extends JavaPlugin implements Listener {
             return;
         }
         for(int i = 0; i < getLocationData().getKeys(false).size()+1; i++){
-            getLocations().add(Serialization.fromLocationString(getLocationData().getString(String.valueOf(i))));
+            log.info(getLocationData().getString(String.valueOf(i)));
+            //getLocations().add(Serialization.fromLocationString(getLocationData().getString(String.valueOf(i))));
         }
     }
     //Save Data Structures to file
     private void saveLocations() {
+        int counter = 0;
         for (Location loc : getLocations()) {
-            int entries = getLocationData().getKeys(false).size();
-            getLocationData().set(String.valueOf(entries + 1), Serialization.toLocationString(loc));
+            getLocationData().set(String.valueOf(counter), Serialization.toLocationString(loc));
+            counter++;
         }
         getLocations().clear();
     }
