@@ -61,12 +61,15 @@ public class PlayerOnline extends JavaPlugin implements Listener {
         }
         //Add defaults to config file.
         getConfig().addDefault("online-message", "&aOnline!");
-        getConfig().addDefault("offline-message", "&Offline!");
+        getConfig().addDefault("offline-message", "&cOffline!");
         getConfig().options().copyDefaults(true);
         saveConfig();
     }
     //Persistent Data Structures
     private void populateLocations(){
+        if(getLocationData().getKeys(false).size() == 0){
+            return;
+        }
         for(int i = 0; i < getLocationData().getKeys(false).size()+1; i++){
             getLocations().add(Serialization.fromLocationString(getLocationData().getString(String.valueOf(i))));
         }
