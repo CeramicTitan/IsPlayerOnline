@@ -57,10 +57,10 @@ public class SignListener implements Listener {
             if (e.getClickedBlock().getType() == Material.WALL_SIGN || e.getClickedBlock().getType() == Material.SIGN_POST || e.getClickedBlock().getType() == Material.SIGN) {
                 Player player = e.getPlayer();
                 Sign sign = (Sign) e.getClickedBlock().getState();
-                if(sign.getLine(0).equalsIgnoreCase("[online]")){
+                if(sign.getLine(0).equalsIgnoreCase("[online]") ){
                     Player target = Bukkit.getPlayer(sign.getLine(1));
                     String lastSeen = plugin.getPlayerData().getString(target.getUniqueId().toString());
-                    if(lastSeen != null){
+                    if(lastSeen != null && !target.isOnline()){
                         player.sendMessage(target.getDisplayName() +" was last seen: "+ lastSeen);
                     }
                 }
