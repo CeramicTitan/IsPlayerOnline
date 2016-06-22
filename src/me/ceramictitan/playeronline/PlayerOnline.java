@@ -73,7 +73,7 @@ public class PlayerOnline extends JavaPlugin implements Listener {
         }
         for(int i = 0; i < getLocationData().getKeys(false).size()+1; i++){
             log.info(getLocationData().getString(String.valueOf(i)));
-            //getLocations().add(Serialization.fromLocationString(getLocationData().getString(String.valueOf(i))));
+            getLocations().add(Serialization.fromLocationString(getLocationData().getString(String.valueOf(i))));
         }
     }
     //Save Data Structures to file
